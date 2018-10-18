@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DesignPattern</string>
+    <string name="file">file</string>
+    <string name="xml">xml</string>
+    <string name="db">db</string>
+    <string name="result">展示获取的内容:</string>
+</resources>
