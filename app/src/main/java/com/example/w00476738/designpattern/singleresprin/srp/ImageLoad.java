@@ -1,14 +1,11 @@
-package com.example.w00476738.designpattern.singleresprin;
+package com.example.w00476738.designpattern.singleresprin.srp;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Log;
-import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,8 +18,11 @@ import java.util.concurrent.Executors;
 public class ImageLoad
 {
 
-
+    private DiskCache diskCache = new DiskCache();
     private static final String TAG = "ImageLoad";
+    private boolean isUseDiskCache = false;
+    private ImageCache imageCache;
+
     /**
      * 跟cpu核数相同的线程
      */
@@ -31,15 +31,22 @@ public class ImageLoad
             .availableProcessors());
 
 
+    public void setImageCache(ImageCache imageCache){
+        this.imageCache = imageCache;
+    }
+
     /**
      * 展示图片使用
+     *
      * @param url
      * @param imageView
      */
     public void displayBitmap(final String url, final ImageView imageView)
     {
-        Bitmap bitmap = ImageCache.getInstance().get(url);
-        if ( bitmap!= null){
+        Bitmap bitmap = imageCache.get(url);
+        //Bitmap bitmap = MemoryCache.getInstance().get(url);
+        if (bitmap != null)
+        {
             imageView.setImageBitmap(bitmap);
         }
         imageView.setTag(url);
@@ -57,7 +64,8 @@ public class ImageLoad
                 {
                     imageView.setImageBitmap(bitmap);
                 }
-                ImageCache.getInstance().put(url,bitmap);
+                imageCache.put(url,bitmap);
+
             }
         });
     }
@@ -85,5 +93,9 @@ public class ImageLoad
         return bitmap;
     }
 
+    public void setUseDiskCache(boolean isUseDiskCache)
+    {
+        this.isUseDiskCache = isUseDiskCache;
+    }
 
 }

@@ -1,7 +1,6 @@
-package com.example.w00476738.designpattern.singleresprin;
+package com.example.w00476738.designpattern.singleresprin.srp;
 
 import android.graphics.Bitmap;
-import android.graphics.ImageFormat;
 import android.util.LruCache;
 
 /**
@@ -9,10 +8,10 @@ import android.util.LruCache;
  * Time:9:22
  * Author:w00476738<weijianqiang@huawei.com>
  */
-public class ImageCache
+public class MemoryCache implements ImageCache
 {
 
-    public static ImageCache imageCache = null;
+    public static MemoryCache memoryCache = null;
     /**
      * 系统分配最大内存
      */
@@ -24,19 +23,19 @@ public class ImageCache
     int cacheSize = (int) maxMemory/4;
     private LruCache<String, Bitmap> lruCache;
 
-    public ImageCache(){
+    public MemoryCache(){
         initImageCache();
     }
 
-    public static ImageCache getInstance(){
-        if (imageCache == null){
-            synchronized (ImageCache.class){
-                if (imageCache == null){
-                    imageCache = new ImageCache();
+    public static MemoryCache getInstance(){
+        if (memoryCache == null){
+            synchronized (MemoryCache.class){
+                if (memoryCache == null){
+                    memoryCache = new MemoryCache();
                 }
             }
         }
-        return imageCache;
+        return memoryCache;
     }
 
     public void initImageCache(){
