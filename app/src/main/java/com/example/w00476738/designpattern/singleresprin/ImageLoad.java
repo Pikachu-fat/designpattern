@@ -29,42 +29,42 @@ public class ImageLoad
 
     ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
             .availableProcessors());
-    int maxMemory = (int) Runtime.getRuntime().maxMemory() / 1024;
+
 
     /**
-     * 内存的四分之一用来缓存图片
+     * 展示图片使用
+     * @param url
+     * @param imageView
      */
-    int cacheSize = maxMemory / 4;
-    private LruCache<String, Bitmap> lruCache = new LruCache<String, Bitmap>(cacheSize){
-        @Override
-        protected int sizeOf(String key, Bitmap value)
-        {
-            return value.getRowBytes()*value.getHeight()/1024;
-        }
-    };
-
-
     public void displayBitmap(final String url, final ImageView imageView)
     {
-        executorService.submit(new Runnable() {
+        Bitmap bitmap = ImageCache.getInstance().get(url);
+        if ( bitmap!= null){
+            imageView.setImageBitmap(bitmap);
+        }
+        imageView.setTag(url);
+        executorService.submit(new Runnable()
+        {
             @Override
             public void run()
             {
-                imageView.setTag(url);
                 Bitmap bitmap = downloadBitmap(url);
-                if (bitmap == null){
+                if (bitmap == null)
+                {
                     Log.d(TAG, "displayBitmap: bitmap is null");
                 }
-                if (url.equals(imageView.getTag())){
+                if (url.equals(imageView.getTag()))
+                {
                     imageView.setImageBitmap(bitmap);
                 }
-                lruCache.put(url,bitmap);
+                ImageCache.getInstance().put(url,bitmap);
             }
         });
     }
 
     /**
      * 通过http请求下载图片
+     *
      * @param url
      * @return
      */
