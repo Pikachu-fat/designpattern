@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.w00476738.designpattern">
+<manifest package="com.example.w00476738.designpattern"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -10,15 +10,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".simplefactory.avtivity.SimpleFactoryActivity"/>
+        <activity android:name=".abstractfactory.activity.AbstractFactoryActivity"/>
+        <activity android:name=".singleresprin.activity.SRPActivity"/>
+        <activity android:name=".reflex.ReflexActivity">
+
+        </activity>
+        <activity android:name=".build.BuilderActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".simplefactory.avtivity.SimpleFactoryActivity" />
-        <activity android:name=".abstractfactory.activity.AbstractFactoryActivity" />
-        <activity android:name=".singleresprin.activity.SRPActivity"></activity>
     </application>
 
 </manifest>
