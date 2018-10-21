@@ -5,6 +5,10 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.w00476738.designpattern.singleresprin.srp.builder.DisplayConfig;
+import com.example.w00476738.designpattern.singleresprin.srp.builder.ImageLoadConfigation;
+import com.example.w00476738.designpattern.singleresprin.srp.builder.policy.LoadPolicy;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -18,10 +22,12 @@ import java.util.concurrent.Executors;
 public class ImageLoad
 {
 
-    private DiskCache diskCache = new DiskCache();
     private static final String TAG = "ImageLoad";
-    private boolean isUseDiskCache = false;
     private ImageCache imageCache;
+    private ImageLoadConfigation imageLoadConfigation;
+    private int threadCount = 1;
+    private DisplayConfig displayConfig;
+    private LoadPolicy loadPolicy;
 
     /**
      * 跟cpu核数相同的线程
@@ -31,8 +37,18 @@ public class ImageLoad
             .availableProcessors());
 
 
-    public void setImageCache(ImageCache imageCache){
-        this.imageCache = imageCache;
+
+    public void initImageLoad(ImageLoadConfigation imageLoadConfigation){
+        this.imageLoadConfigation = imageLoadConfigation;
+        checkConfig(imageLoadConfigation);
+    }
+
+    private void checkConfig(ImageLoadConfigation imageLoadConfigation)
+    {
+        this.imageCache = imageLoadConfigation.getmImageCache();
+        this.displayConfig = imageLoadConfigation.getDisplayConfig();
+        this.loadPolicy = imageLoadConfigation.getLoadPolicy();
+        this.threadCount = imageLoadConfigation.getThreadCount();
     }
 
     /**
@@ -93,9 +109,5 @@ public class ImageLoad
         return bitmap;
     }
 
-    public void setUseDiskCache(boolean isUseDiskCache)
-    {
-        this.isUseDiskCache = isUseDiskCache;
-    }
 
 }
