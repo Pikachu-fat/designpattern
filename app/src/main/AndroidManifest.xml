@@ -23,14 +23,22 @@
         <activity android:name=".abstractfactory.activity.AbstractFactoryActivity"/>
         <activity android:name=".singleresprin.activity.SRPActivity"/>
         <activity android:name=".reflex.ReflexActivity">
-
         </activity>
         <activity android:name=".build.BuilderActivity">
+        </activity>
+        <activity android:name=".origin.OriginActivity">
+        </activity>
+        <activity android:name=".statepattern.StateActivity">
+
+        </activity>
+        <activity android:name=".statepattern.weibo.activity.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".statepattern.weibo.activity.LoginActivity">
         </activity>
     </application>
 

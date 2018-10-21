@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".statepattern.weibo.FirstActivity">
+    android:orientation="vertical"
+    tools:context=".statepattern.weibo.activity.FirstActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/foward_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="forward"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="logout"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
